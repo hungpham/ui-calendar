@@ -19,12 +19,12 @@ calendarDemoApp.controller('CalendarCtrl',
     };
     /* event source that contains custom events on the scope */
     $scope.events = [
-      {title: 'All Day Event',start: new Date(y, m, 1)},
-      {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-      {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
-      {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
-      {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-      {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
+      {
+        title: 'Click for Google',
+        start: new Date(y, m, d, 8),
+        end: new Date(y, m, d, 10),
+        url: 'http://google.com/'
+      }
     ];
     /* event source that calls a function on every view switch */
     $scope.eventsF = function (start, end, timezone, callback) {
@@ -55,6 +55,7 @@ calendarDemoApp.controller('CalendarCtrl',
     /* alert on Resize */
     $scope.alertOnResize = function(event, delta, revertFunc, jsEvent, ui, view ){
        $scope.alertMessage = ('Event Resized to make dayDelta ' + delta);
+       console.log(event);
     };
     /* add and removes an event source of choice */
     $scope.addRemoveEventSource = function(sources,source) {
@@ -103,8 +104,17 @@ calendarDemoApp.controller('CalendarCtrl',
     /* config object */
     $scope.uiConfig = {
       calendar:{
-        height: 450,
+        height: 950,
         editable: true,
+        selectable: true,
+        allDay: false,
+        start: '00:00', // a start time (10am in this example)
+        end: '24:00', // an end time (6pm in this example)
+        defaultView: 'agendaWeek',
+        firstDay: 1,
+        slotDuration: '00:15:00',
+        axisFormat: 'H:mm',
+        columnFormat: 'ddd M',
         header:{
           left: 'title',
           center: '',
@@ -130,6 +140,5 @@ calendarDemoApp.controller('CalendarCtrl',
     };
     /* event sources array*/
     $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-    $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 });
 /* EOF */
